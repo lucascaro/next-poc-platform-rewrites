@@ -59,7 +59,6 @@ export default async function middleware(req: NextRequest) {
   }
 
   // rewrite everything else to `/_sites/[site] dynamic route
-  return NextResponse.rewrite(
-    new URL(`/_sites/${currentHost}${path}`, req.url)
-  );
+  // Hard-code to index to avoid 404 from an erroneous redirect to /_sites added by netlify
+  return NextResponse.rewrite(new URL(`/_sites/${currentHost}`, req.url));
 }
